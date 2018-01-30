@@ -16,3 +16,13 @@ def post_list(request):
 
     # return HttpResponse('<html><body><h1>Post list</h1><p>post 목록을 보여줄 예정입니다.</p></body></html>')
     return render(request, 'blog/post_list.html')
+
+
+def post_detail(request):
+    """
+    localhost:8000/detail/ 로 온 요청을
+    'blog/post_detail.html'을 render한 결과를 리턴
+    :param request:
+    :return:
+    """
+    return render(request, 'blog/post_detail.html')
