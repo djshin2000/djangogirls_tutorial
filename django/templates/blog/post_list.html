@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>DjangoGrils Tutorial</title>
+  <meta charset="UTF-8">
+  <title>DjangoGrils Tutorial</title>
 </head>
 <body>
-    <h1>Post List</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam atque consectetur, dolores eos explicabo incidunt itaque laborum nam neque nesciunt officia, possimus, quod similique sunt totam vitae! Aspernatur, dolorum.</p>
+  <div>
+    <h1><a href="">Django Girls Blog</a></h1>
+  </div>
+
+  {% for post in posts %}
+  <div>
+    <p>published: {{ post.published_date}}</p>
+    <h2><a href="">{{ post.title }}</a></h2>
+    <p>{{ post.content|linebreaksbr }}</p>
+  </div>
+  <br>
+  {% endfor %}
 </body>
 </html>
