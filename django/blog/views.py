@@ -13,4 +13,6 @@ def post_list(request):
     # 8. 함수의 실행함 결과(리턴값)을 브라우저로 다시 전달
 
     # Http 프로토토콜로 텍스트 데이터 응답을 반환
-    return HttpResponse('<html><body><h1>Post list</h1><p>post 목록을 보여줄 예정입니다.</p></body></html>')
+
+    # return HttpResponse('<html><body><h1>Post list</h1><p>post 목록을 보여줄 예정입니다.</p></body></html>')
+    return render(request, 'blog/post_list.html')
