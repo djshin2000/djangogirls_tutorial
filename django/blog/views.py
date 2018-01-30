@@ -37,6 +37,6 @@ def post_detail(request, pk):
     :return:
     """
     context = {
-        'post':Post.objects.get(pk=pk),
+        'post': Post.objects.get(pk=pk),
     }
     return render(request, 'blog/post_detail.html', context)
