@@ -43,6 +43,19 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', context)
 
 
+def post_edit(request, pk):
+    if request.method == 'POST':
+        post = Post.objects.get(pk=pk)
+        post.title = request.POST['title']
+        post.content = request.POST['content']
+        post.save()
+        return redirect('post-detail', pk=post.pk)
+    context = {
+        'post': Post.objects.get(pk=pk),
+    }
+    return render(request, 'blog/post_edit.html', context)
+
+
 def post_add(request):
     if request.method == 'POST':
         title = request.POST['title']
