@@ -66,8 +66,9 @@ def post_add(request):
 
 
 def post_delete(request, pk):
-
-    post = Post.objects.get(pk=pk)
-    post.delete()
-
-    return redirect('post-list')
+    if request.method == 'POST':
+        post = Post.objects.get(pk=pk)
+        if request.user == post.author:
+            post.delete()
+            return redirect('post-list')
+        return redirect('post-detail', pk=post.pk)
