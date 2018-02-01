@@ -44,39 +44,45 @@ def post_detail(request, pk):
 
 
 def post_edit(request, pk):
+    context = {
+        'post': Post.objects.get(pk=pk),
+    }
     if request.method == 'POST':
         post = Post.objects.get(pk=pk)
         post.title = request.POST['title']
         post.content = request.POST['content']
-        post.save()
-        return redirect('post-detail', pk=post.pk)
-    context = {
-        'post': Post.objects.get(pk=pk),
-    }
+        if post.title and post.content:
+
+            post.save()
+            return redirect('post-detail', pk=post.pk)
+        context['form_error'] = '제목과 내용을 입력해주세요.'
     return render(request, 'blog/post_add_edit.html', context)
 
 
 def post_add(request):
+    context = {}
     if request.method == 'POST':
         title = request.POST['title']
         content = request.POST['content']
-        # return HttpResponse(f'{title}: {content}') # 인자는 하나여야함
-        post = Post.objects.create(
-            author=request.user,
-            title=title,
-            content=content,
-        )
-        return redirect('post-detail', pk=post.pk)
-        # return HttpResponse(f'{post.author}<br> {post.pk}<br> {post.title}<br> {post.content}')
 
-        # render를 사용할 경우
-        # context = {
-        #     'post': post
-        # }
-        # return render(request, 'blog/post_detail.html', context)
-    else:
-        pass
-    return render(request, 'blog/post_add_edit.html')
+        # title이나 content가 비어있으면 아래까지 내려가서 오류 메시지 출력
+        if title and content:
+            # return HttpResponse(f'{title}: {content}') # 인자는 하나여야함
+            post = Post.objects.create(
+                author=request.user,
+                title=title,
+                content=content,
+            )
+            return redirect('post-detail', pk=post.pk)
+            # return HttpResponse(f'{post.author}<br> {post.pk}<br> {post.title}<br> {post.content}')
+
+            # render를 사용할 경우
+            # context = {
+            #     'post': post
+            # }
+            # return render(request, 'blog/post_detail.html', context)
+        context['form_error'] = '제목과 내용을 입력해주세요.'
+    return render(request, 'blog/post_add_edit.html', context)
 
 
 def post_delete(request, pk):
