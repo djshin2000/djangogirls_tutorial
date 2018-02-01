@@ -53,7 +53,7 @@ def post_edit(request, pk):
     context = {
         'post': Post.objects.get(pk=pk),
     }
-    return render(request, 'blog/post_edit.html', context)
+    return render(request, 'blog/post_add_edit.html', context)
 
 
 def post_add(request):
@@ -76,7 +76,7 @@ def post_add(request):
         # return render(request, 'blog/post_detail.html', context)
     else:
         pass
-    return render(request, 'blog/post_add.html')
+    return render(request, 'blog/post_add_edit.html')
 
 
 def post_delete(request, pk):
