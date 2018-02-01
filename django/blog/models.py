@@ -9,6 +9,11 @@ class Post(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
 
+    class Meta:
+        verbose_name = '글'
+        verbose_name_plural = f'{verbose_name} 목록'
+        ordering = ['-created_date']
+
     def publish(self):
         self.published_date = timezone.now()
         self.save()

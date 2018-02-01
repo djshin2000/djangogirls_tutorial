@@ -16,6 +16,7 @@ def post_list(request):
     # Http 프로토토콜로 텍스트 데이터 응답을 반환
     # return HttpResponse('<html><body><h1>Post list</h1><p>post 목록을 보여줄 예정입니다.</p></body></html>')
 
+    # posts = Post.objects.order_by('-created_date')
     posts = Post.objects.all()
     context = {
         'posts': posts,
