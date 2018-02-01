@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Post
 
 
@@ -43,4 +43,31 @@ def post_detail(request, pk):
 
 
 def post_add(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        # return HttpResponse(f'{title}: {content}') # 인자는 하나여야함
+        post = Post.objects.create(
+            author=request.user,
+            title=title,
+            content=content,
+        )
+        return redirect('post-detail', pk=post.pk)
+        # return HttpResponse(f'{post.author}<br> {post.pk}<br> {post.title}<br> {post.content}')
+
+        # render를 사용할 경우
+        # context = {
+        #     'post': post
+        # }
+        # return render(request, 'blog/post_detail.html', context)
+    else:
+        pass
     return render(request, 'blog/post_add.html')
+
+
+def post_delete(request, pk):
+
+    post = Post.objects.get(pk=pk)
+    post.delete()
+
+    return redirect('post-list')
